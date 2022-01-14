@@ -30,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String message = 'Press add button';
   void _localAuth() async {
     var localAuth = LocalAuthentication();
     try {
@@ -39,9 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
         stickyAuth: true,
         useErrorDialogs: true,
       );
-      print('didAuthenticate: $didAuthenticate');
+      message = 'didAuthenticate: $didAuthenticate';
     } catch (e) {
-      print('error: $e');
+      message = 'error: $e';
+    }
+    if (mounted) {
+      setState(() {});
     }
   }
 
@@ -55,12 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                message,
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ),
           ],
         ),
